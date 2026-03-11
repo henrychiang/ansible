@@ -1,0 +1,9 @@
+
+---
+- name: chronyd
+  lineinfile:
+    path: /etc/chrony.conf
+    line: "{{ntp_server}}"
+
+- name: restart
+  service: name=chronyd enabled=yes state=restarted

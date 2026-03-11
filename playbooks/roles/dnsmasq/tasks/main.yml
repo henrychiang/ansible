@@ -1,0 +1,8 @@
+
+---
+- lineinfile:
+    path: /etc/dnsmasq.d/origin-dns.conf
+    line: "{{dnsmasq_internal}}"
+
+- name: restart
+  service: name=dnsmasq state=restarted

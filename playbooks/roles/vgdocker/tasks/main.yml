@@ -1,0 +1,20 @@
+
+---
+- name: Stop docker service
+  service: name=docker state=stopped
+
+- name: Write docker storage file
+  template:
+    src: templates/docker-storage-setup.j2
+    dest: "/etc/sysconfig/docker-storage-setup"
+    backup: true
+
+- name: run docker-storage-setup
+  command: docker-storage-setup
+
+- name: Start docker service
+  service: name=docker state=started
+
+- name: Enable docker service
+  service: name=docker enabled=yes
+

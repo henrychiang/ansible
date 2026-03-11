@@ -1,0 +1,17 @@
+
+---
+- name: install ca-certificates
+  yum: name=ca-certificates state=present
+
+- name: update-ca-trust enable
+  command: update-ca-trust enable
+
+- name: copy ca
+  template:
+    src: templates/ca.j2
+    dest: "/etc/pki/ca-trust/source/anchors"
+    backup: true
+
+- name: update-ca-trust extract
+  command: update-ca-trust extract
+

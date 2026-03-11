@@ -1,0 +1,54 @@
+
+---
+- name: pre-install
+  hosts: myrepo
+  roles:
+     - repo-server
+     - firewalld
+     - selinux
+  tags: myrepo
+
+- name: pre-install
+  hosts: myhost
+  roles:
+     - host
+
+- name: pre-install
+  hosts: nodes
+  roles:
+     - hostname
+
+- name: pre-install 
+  hosts: nodes
+  roles:
+     - repo-local
+     - pkg
+     - iptables
+     - tz
+     - ntp
+
+- name: pre-install 
+  hosts: masters
+  roles:
+     - master
+     - ca
+
+#- name: pre-install
+#  hosts: myreg
+#  roles:
+#     - reg
+
+- name: pre-install
+  hosts: myvgdocker
+  roles:
+     - vgdocker
+  tags: myvgdocker
+
+
+
+
+
+
+
+
+

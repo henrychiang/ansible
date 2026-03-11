@@ -1,0 +1,11 @@
+
+
+---
+- name: etchosts
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ hostvars[item].ip }} {{ hostvars[item].inventory_hostname }}"
+    state: present
+  with_items: "{{ groups.all }}"
+
+

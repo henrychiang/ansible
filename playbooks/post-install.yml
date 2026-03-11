@@ -1,0 +1,7 @@
+
+---
+- name: post-install 
+  hosts: nodes
+  roles:
+     - dnsmasq
+

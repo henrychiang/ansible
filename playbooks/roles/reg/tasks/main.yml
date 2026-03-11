@@ -1,0 +1,7 @@
+
+---
+- name: reg
+  yum: pkg={{ item }} state=present
+  with_items:
+   - docker-distribution 
+

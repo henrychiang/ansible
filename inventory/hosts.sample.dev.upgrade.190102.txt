@@ -1,0 +1,132 @@
+[OSEv3:children]
+masters
+nodes
+etcd
+new_nodes
+
+[OSEv3:vars]
+
+openshift_image_tag=v3.9.57
+openshift_pkg_version=-3.9.57
+docker_version="1.13.1-88.git07f3374.el7.x86_64"
+
+rhel_yum_repo_server=http://10.80.71.151:8080/repo/
+dnsmasq_internal='address=/.bss-tpe.cht.com.tw/10.80.71.101'
+ntp_server='server 10.80.72.229 iburst'
+
+ansible_ssh_user=root
+openshift_deployment_type=openshift-enterprise
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+openshift_master_htpasswd_users={'student': '$apr1$hVjv3PI3$sSSN8Ga.J2Pp7JoGKUurr0'}
+
+openshift_master_cluster_method=native
+openshift_master_cluster_hostname=lb-dev.bss-tpe.cht.com.tw
+openshift_master_cluster_public_hostname=lb-dev.bss-tpe.cht.com.tw
+
+openshift_docker_additional_registries=registry-dev.bss-tpe.cht.com.tw:5000,registry-emss.bss-tpe.cht.com.tw:5000
+openshift_docker_insecure_registries=registry-dev.bss-tpe.cht.com.tw:5000,registry-emss.bss-tpe.cht.com.tw:5000
+openshift_docker_blocked_registries=registry.access.redhat.com,docker.io
+
+openshift_clock_enabled=true
+openshift_master_default_subdomain=bss-tpe.cht.com.tw
+
+os_sdn_network_plugin_name=redhat/openshift-ovs-networkpolicy
+osm_cluster_network_cidr=10.208.0.0/15
+openshift_portal_net=10.207.0.0/16
+
+#openshift_disable_check=memory_availability,disk_availability
+
+#oreg_url=registry-dev.bss-tpe.cht.com.tw:5000/openshift3/ose-${component}:${version}
+oreg_url=registry-emss.bss-tpe.cht.com.tw:5000/openshift3/ose-${component}:${version}
+
+openshift_examples_modify_imagestreams=true
+openshift_cockpit_deployer_prefix='registry-dev.bss-tpe.cht.com.tw:5000/openshift3/'
+openshift_cockpit_deployer_version='v3.9.30'
+
+openshift_router_selector='infra=1'
+openshift_registry_selector='infra=1'
+
+openshift_metrics_install_metrics=true
+openshift_master_metrics_public_url=https://hawkular-metrics-dev.bss-tpe.cht.com.tw/hawkular/metrics
+#openshift_metrics_image_prefix='registry-dev.bss-tpe.cht.com.tw:5000/openshift3/'
+openshift_metrics_image_prefix='registry-emss.bss-tpe.cht.com.tw:5000/openshift3/'
+#openshift_metrics_image_version='v3.9.30'
+openshift_metrics_image_version='v3.9.57'
+openshift_metrics_cassandra_nodeselector={'infra':'1'}
+openshift_metrics_hawkular_nodeselector={'infra':'1'}
+openshift_metrics_heapster_nodeselector={'infra':'1'}
+openshift_metrics_hawkular_hostname=hawkular-metrics-dev.bss-tpe.cht.com.tw
+
+openshift_logging_install_logging=true
+#openshift_logging_image_prefix='registry-dev.bss-tpe.cht.com.tw:5000/openshift3/'
+openshift_logging_image_prefix='registry-emss.bss-tpe.cht.com.tw:5000/openshift3/'
+#openshift_logging_image_version='v3.9.30'
+openshift_logging_image_version='v3.9.57'
+openshift_logging_curator_nodeselector={'infra':'1'}
+openshift_logging_kibana_nodeselector={'infra':'1'}
+openshift_logging_es_nodeselector={'infra':'1'}
+openshift_logging_es_ops_nodeselector={'infra':'1'}
+openshift_logging_kibana_ops_nodeselector={'infra':'1'}
+openshift_logging_curator_ops_nodeselector={'infra':'1'}
+openshift_logging_kibana_hostname=kibana-dev.bss-tpe.cht.com.tw
+
+openshift_enable_service_catalog=false
+template_service_broker_install=false
+
+openshift_web_console_prefix='registry-emss.bss-tpe.cht.com.tw:5000/openshift3/ose-'
+#openshift_web_console_version='v3.9.30'
+openshift_web_console_version='v3.9.57'
+openshift_web_console_nodeselector={'infra':'1'}
+
+#openshift_hosted_prometheus_deploy=true
+openshift_prometheus_node_selector={'infra':'1'}
+openshift_prometheus_image_prefix='registry-dev.bss-tpe.cht.com.tw:5000/openshift3/'
+openshift_prometheus_image_version='v3.9.30'
+
+openshift_management_install_management=false
+openshift_management_install_beta=true
+openshift_management_image_prefix='registry-dev.bss-tpe.cht.com.tw:5000/openshift3/'
+openshift_management_image_version='v3.9.30'
+openshift_management_node_selector={'infra':'1'}
+openshift_management_storage_nfs_local_hostname=bsshostr152
+
+[masters]
+bsshostr111 ansible_host=10.80.71.111
+bsshostr112 ansible_host=10.80.71.112
+bsshostr113 ansible_host=10.80.71.113
+
+[etcd]
+bsshostr111 ansible_host=10.80.71.111
+bsshostr112 ansible_host=10.80.71.112
+bsshostr113 ansible_host=10.80.71.113
+
+[nodes]
+bsshostr151 ansible_host=10.80.71.151 openshift_node_labels="{'infra': '1','upgrade': 'blue'}"
+bsshostr152 ansible_host=10.80.71.152 openshift_node_labels="{'infra': '1','upgrade': 'green'}"
+bsshostr111 ansible_host=10.80.71.111
+bsshostr112 ansible_host=10.80.71.112
+bsshostr113 ansible_host=10.80.71.113
+
+[new_nodes]
+#bsshostr151 ansible_host=10.80.71.151 openshift_node_labels="{'infra': '1'}"
+
+[myhost]
+lb-dev.bss-tpe.cht.com.tw ip=10.80.71.111 ansible_host=10.80.71.111
+bsshostr111 ip=10.80.71.111 ansible_host=10.80.71.111
+bsshostr112 ip=10.80.71.112 ansible_host=10.80.71.112
+bsshostr113 ip=10.80.71.113 ansible_host=10.80.71.113
+bsshostr151 ip=10.80.71.151 ansible_host=10.80.71.151
+bsshostr152 ip=10.80.71.152 ansible_host=10.80.71.152
+registry-dev.bss-tpe.cht.com.tw ip=10.80.71.152 ansible_host=10.80.71.152
+
+[myreg]
+#xxx
+
+[myrepo]
+bsshostr151 path_my_repo='/repos' ansible_host=10.80.71.151
+
+[myvgdocker]
+#xxxbsshostr151 vg='vg01' size='150GB' ansible_host=10.80.71.151
+#xxxbsshostr152 vg='vg01' size='150GB' ansible_host=10.80.71.152
+

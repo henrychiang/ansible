@@ -1,0 +1,7 @@
+
+---
+- name: generation the ocp-private.repo file
+  template:
+    src: ocp-private.js
+    dest: /etc/yum.repos.d/local.repo
+

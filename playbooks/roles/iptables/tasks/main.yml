@@ -1,0 +1,15 @@
+
+---
+- name: iptables
+  lineinfile:
+    dest: /etc/sysconfig/iptables
+    regexp: "^-A INPUT -p {{item.protocol}} -m state --state NEW -m {{item.protocol}} --dport {{item.port}} -j ACCEPT$"
+    insertbefore: "^-A INPUT -j REJECT --reject-with icmp-host-prohibited" 
+    line: "-A INPUT -p {{item.protocol}} -m state --state NEW -m {{item.protocol}} --dport {{item.port}} -j ACCEPT"
+    state: present
+  with_items:
+    - { protocol: tcp, port: 8080 }
+    - { protocol: tcp, port: 5000 }
+
+- name: restart
+  service: name=iptables enabled=yes state=restarted
