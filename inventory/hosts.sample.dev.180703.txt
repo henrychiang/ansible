@@ -12,7 +12,7 @@ ansible_ssh_user=root
 openshift_deployment_type=openshift-enterprise
 
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
-openshift_master_htpasswd_users={'student': '$apr1$hVjv3PI3$sSSN8Ga.J2Pp7JoGKUurr0'}
+openshift_master_htpasswd_users={'student': ''}
 
 openshift_master_cluster_method=native
 openshift_master_cluster_hostname=lb-dev.bss-tpe.cht.com.tw
