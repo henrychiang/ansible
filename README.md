@@ -1,1 +1,1 @@
-Extend OCP ansible playbooks to simply pre-installation requirements, including Certificate, NW, Security, OS, Storage and Docker configurations.
+Extend OCP (OpenShift) ansible playbooks to simplify prerequisites of installations, including Certificate, Network, Security, OS, Storage and Docker configurations.
